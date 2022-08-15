@@ -1,0 +1,19 @@
+Description: Monitor the status of "Jack Line Out CLFE"
+ PulseAudio needs to monitor the status of plugging and
+ unplugging about the jack "Jack Line Out CLFE".
+Author: Chengyi Zhao <zhaochengyi@uniontech.com>
+Origin: https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/a99f544b86025cc65e8145f46cb406992502b4a0
+Bug: https://pms.uniontech.com/zentao/bug-view-94530.html
+Last-Update: 2022-05-25
+
+--- pulseaudio-15.0+dfsg1.orig/src/modules/alsa/mixer/paths/analog-output-lineout.conf
++++ pulseaudio-15.0+dfsg1/src/modules/alsa/mixer/paths/analog-output-lineout.conf
+@@ -50,8 +50,6 @@ state.unplugged = unknown
+ required-any = any
+ 
+ [Jack Line Out CLFE]
+-state.plugged = unknown
+-state.unplugged = unknown
+ required-any = any
+ 
+ [Jack Line Out CLFE Phantom]

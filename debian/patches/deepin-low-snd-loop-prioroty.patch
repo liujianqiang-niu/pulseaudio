@@ -1,0 +1,28 @@
+Description: low snd loop prioroty 
+Author: wanghang <wanghang_cm@deepin.com>
+
+Origin: https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/aae4c27fc35b46890c085eec02dc74767f8db68e
+Last-Update: 2022-05-25
+
+--- pulseaudio-15.0+dfsg1.orig/src/modules/alsa/mixer/paths/analog-input.conf
++++ pulseaudio-15.0+dfsg1/src/modules/alsa/mixer/paths/analog-input.conf
+@@ -19,7 +19,7 @@
+ ; See analog-output.conf.common for an explanation on the directives
+ 
+ [General]
+-priority = 100
++priority = 20
+ 
+ [Element Capture]
+ switch = mute
+--- pulseaudio-15.0+dfsg1.orig/src/modules/alsa/mixer/paths/analog-output.conf
++++ pulseaudio-15.0+dfsg1/src/modules/alsa/mixer/paths/analog-output.conf
+@@ -19,7 +19,7 @@
+ ; See analog-output.conf.common for an explanation on the directives
+ 
+ [General]
+-priority = 99
++priority = 20
+ 
+ [Element Hardware Master]
+ switch = mute

@@ -1,0 +1,26 @@
+Description: Add the multi-channel path for usb sound card
+ Add the multi-channel path configuration, and pick
+ the first working fallback and ignore the rest mapping.
+Author: Chengyi Zhao <zhaochengyi@uniontech.com>
+Origin: https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/c28ac1b69f4d6c17b18919ca1add9b144fc6fd8b
+Bug: https://pms.uniontech.com/zentao/bug-view-101321.html
+Last-Update: 2022-05-25
+
+--- pulseaudio-15.0+dfsg1.orig/src/modules/alsa/mixer/profile-sets/default.conf
++++ pulseaudio-15.0+dfsg1/src/modules/alsa/mixer/profile-sets/default.conf
+@@ -564,6 +564,7 @@ exact-channels = false
+ fallback = yes
+ priority = 1
+ direction = output
++paths-output = multichannel-output
+ 
+ [Mapping multichannel-input]
+ device-strings = hw:%f
+@@ -572,6 +573,7 @@ exact-channels = false
+ fallback = yes
+ priority = 1
+ direction = input
++paths-input = multichannel-input
+ 
+ ; An example for defining multiple-sink profiles
+ #[Profile output:analog-stereo+output:iec958-stereo+input:analog-stereo]

@@ -1,0 +1,10 @@
+disable-autospawn.patch
+0002-bluetooth-ldac-Fix-RTP-payloading-of-encoded-packet.patch
+deepin-port-switch.patch
+deepin-low-snd-loop-prioroty.patch
+deepin-analog-input-front-mic-conf-jack.patch
+deepin-bug74346-adapte-the-audio-of-Sugon-W330-H35A2.patch
+deepin-bug88648-bluetooth-Try-to-reconnect-HSP-SCO.patch
+deepin-bug94530-monitor-status-of-Jack-Line-Out-CLFE.patch
+deepin-bug101321-pick-first-working-fallback-and-ignore-rest.patch
+deepin-bug78593-No-need-to-start-pulseaudio-when-starting-lightdm.patch
