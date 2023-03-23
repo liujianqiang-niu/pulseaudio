@@ -1,0 +1,103 @@
+From ce44b2baf384d8a65c568311e659968a7328e3bb Mon Sep 17 00:00:00 2001
+From: zhaochengyi <zhaochengyi@uniontech.com>
+Date: Thu, 3 Nov 2022 14:51:54 +0800
+Subject: [PATCH 5/6] Add Dahua conf to adapt usb audio card
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Add dahua-4f05-usb-audio.conf to adapt the usb audio
+card(USB0bda:4f05) which it is used in Dahua device.
+
+Log: 大华采用的海光CPU+ALC4080声卡方案没有使用通用的
+HDA声卡设计，使用pulseaudio的通用模板无法进行正常识别，
+需要udev识别此声卡后，加载dahua-4f05-usb-audio.conf
+文件进行适配。
+
+Bug: https://pms.uniontech.com/zentao/bug-view-86350.html
+
+Author: Chengyi Zhao <zhaochengyi@uniontech.com>
+Origin:
+https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/cb75b6040b4e2cd8842ba9c35f3516806de6dd95
+https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/bebe4f0d9029cb467eb97d1ae9955b9d0adbcc95
+---
+ src/modules/alsa/90-pulseaudio.rules          |  2 +
+ .../profile-sets/dahua-4f05-usb-audio.conf    | 53 +++++++++++++++++++
+ 2 files changed, 55 insertions(+)
+ create mode 100644 src/modules/alsa/mixer/profile-sets/dahua-4f05-usb-audio.conf
+
+diff --git a/src/modules/alsa/90-pulseaudio.rules b/src/modules/alsa/90-pulseaudio.rules
+index d150ad2..0bcc7fc 100644
+--- a/src/modules/alsa/90-pulseaudio.rules
++++ b/src/modules/alsa/90-pulseaudio.rules
+@@ -172,6 +172,8 @@ ATTRS{idVendor}=="1395", ATTRS{idProduct}=="00a1", ENV{PULSE_PROFILE_SET}="sennh
+ ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="4987", ENV{PULSE_PROFILE_SET}="st2557-pc-usb-audio.conf"
+ # Sugon W330-H35A
+ ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="491b", ENV{PULSE_PROFILE_SET}="22d4-us-usb-audio.conf"
++# Dahua
++ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="4f05", ENV{PULSE_PROFILE_SET}="dahua-4f05-usb-audio.conf"
+ 
+ GOTO="pulseaudio_end"
+ 
+diff --git a/src/modules/alsa/mixer/profile-sets/dahua-4f05-usb-audio.conf b/src/modules/alsa/mixer/profile-sets/dahua-4f05-usb-audio.conf
+new file mode 100644
+index 0000000..48a4e95
+--- /dev/null
++++ b/src/modules/alsa/mixer/profile-sets/dahua-4f05-usb-audio.conf
+@@ -0,0 +1,53 @@
++# This file is part of PulseAudio.
++#
++# PulseAudio is free software; you can redistribute it and/or modify
++# it under the terms of the GNU Lesser General Public License as
++# published by the Free Software Foundation; either version 2.1 of the
++# License, or (at your option) any later version.
++#
++# PulseAudio is distributed in the hope that it will be useful, but
++# WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
++# General Public License for more details.
++#
++# You should have received a copy of the GNU Lesser General Public License
++# along with PulseAudio; if not, see <http://www.gnu.org/licenses/>.
++
++[General]
++auto-profiles = yes
++
++[Mapping analog-stereo-rear-mic]
++description = Micphone
++paths-input = analog-input analog-input-rear-mic
++device-strings = hw:%f,0
++channel-map = left,right
++direction = input
++
++[Mapping analog-stereo-front-mic]
++description = Micphone
++paths-input = analog-input analog-input-front-mic
++device-strings = hw:%f,2
++channel-map = left,right
++direction = input
++
++[Mapping analog-stereo-linein]
++description = Rear Linein
++paths-input = analog-input analog-input-linein
++device-strings = hw:%f,1
++channel-map = left,right
++direction = input
++
++[Mapping analog-stereo-headphone]
++description = Front Headphone
++paths-output = analog-output analog-output-headphones
++device-strings = hw:%f,1
++channel-map = left,right
++direction = output
++
++[Mapping analog-stereo-speaker]
++description = Rear Speaker
++paths-output = analog-output analog-output-speaker
++device-strings = hw:%f,0
++channel-map = left,right
++direction = output
++
+-- 
+2.33.1
+

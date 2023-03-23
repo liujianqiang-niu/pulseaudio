@@ -1,0 +1,121 @@
+From 2fd565a70061177c4586a87fae2f445206a0c13e Mon Sep 17 00:00:00 2001
+From: zhaochengyi <zhaochengyi@uniontech.com>
+Date: Wed, 2 Nov 2022 20:41:49 +0800
+Subject: [PATCH] add sound card configuration of Huawei
+
+Description: bug19177/20942 add conf to adapte huawei T100 board
+Author: Chengyi Zhao <zhaochengyi@uniontech.com>
+
+Origin: https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/ac9c2cf195ba082d4a3551fefbecf42f4ea25e46
+        https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/d474d95cb04982a0240a61b21c805e13bfc740b4
+        https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/61f34045b1212f0a9e3a9820a184e6087a15627d
+Bug: https://pms.uniontech.com/zentao/bug-view-20942.html
+Last-Update: 2022-11-03
+
+---
+ src/modules/alsa/90-pulseaudio.rules          |  3 +
+ .../profile-sets/st2557-pc-usb-audio.conf     | 78 +++++++++++++++++++
+ 2 files changed, 81 insertions(+)
+ create mode 100644 src/modules/alsa/mixer/profile-sets/st2557-pc-usb-audio.conf
+
+diff --git a/src/modules/alsa/90-pulseaudio.rules b/src/modules/alsa/90-pulseaudio.rules
+index cf6ad9c..a74f3e6 100644
+--- a/src/modules/alsa/90-pulseaudio.rules
++++ b/src/modules/alsa/90-pulseaudio.rules
+@@ -164,6 +164,9 @@ ATTRS{idVendor}=="1395", ATTRS{idProduct}=="00a0", ENV{PULSE_PROFILE_SET}="sennh
+ ATTRS{idVendor}=="1395", ATTRS{idProduct}=="005f", ENV{PULSE_PROFILE_SET}="sennheiser-gsx.conf"
+ ATTRS{idVendor}=="1395", ATTRS{idProduct}=="00a1", ENV{PULSE_PROFILE_SET}="sennheiser-gsx.conf"
+ 
++# HUAWEI T100
++ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="4987", ENV{PULSE_PROFILE_SET}="st2557-pc-usb-audio.conf"
++
+ GOTO="pulseaudio_end"
+ 
+ LABEL="pulseaudio_check_pci"
+diff --git a/src/modules/alsa/mixer/profile-sets/st2557-pc-usb-audio.conf b/src/modules/alsa/mixer/profile-sets/st2557-pc-usb-audio.conf
+new file mode 100644
+index 0000000..01c3d0f
+--- /dev/null
++++ b/src/modules/alsa/mixer/profile-sets/st2557-pc-usb-audio.conf
+@@ -0,0 +1,78 @@
++# This file is part of PulseAudio.
++#
++# PulseAudio is free software; you can redistribute it and/or modify
++# it under the terms of the GNU Lesser General Public License as
++# published by the Free Software Foundation; either version 2.1 of the
++# License, or (at your option) any later version.
++#
++# PulseAudio is distributed in the hope that it will be useful, but
++# WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
++# General Public License for more details.
++#
++# You should have received a copy of the GNU Lesser General Public License
++# along with PulseAudio; if not, see <http://www.gnu.org/licenses/>.
++
++[General]
++auto-profiles = yes
++
++[Mapping analog-stereo-headphone]
++description = Headphone
++paths-output = analog-output analog-output-headphones
++device-strings = hw:%f,0
++channel-map = left,right
++direction = output
++
++[Mapping analog-stereo-linein2]
++description = Linein
++paths-input = analog-input analog-input-linein
++device-strings = hw:%f,2
++channel-map = left,right
++direction = input
++
++[Mapping analog-stereo-linein]
++description = Linein
++paths-input = analog-input analog-input-linein
++device-strings = hw:%f,1
++channel-map = left,right
++direction = input
++
++[Mapping analog-stereo-mic]
++description =  Microphone
++paths-input = analog-input analog-input-mic
++device-strings = hw:%f,0
++channel-map = left,right
++direction = input
++
++[Mapping analog-stereo-rear-mic]
++description = Rear Microphone
++paths-input = analog-input analog-input-rear-mic
++device-strings = hw:%f,1
++channel-map = left,right
++direction = input
++
++[Mapping analog-stereo-front-mic]
++description = Front Microphone
++paths-input = analog-input analog-input-front-mic
++device-strings = hw:%f,0
++channel-map = left
++direction = input
++
++[DecibelFix Front Mic]
++db-values = 0:-65.62 47:0
++
++[DecibelFix Rear Mic]
++db-values = 0:-65.62 47:0
++
++[DecibelFix Mic]
++db-values = 0:-65.62 47:0
++
++[DecibelFix Line]
++db-values = 0:-65.62 47:0
++
++[Profile output:analog-stereo-headphone+input:analog-stereo-all]
++
++description = Huaqin ST2557-PC
++output-mappings = analog-stereo-headphone
++input-mappings = analog-stereo-mic analog-stereo-linein analog-stereo-linein2 analog-stereo-rear-mic analog-stereo-front-mic
++skip-probe = yes
+-- 
+2.33.1
+

@@ -1,0 +1,62 @@
+From 21709a995c36ba3310d2f4f526c66668ad3894e9 Mon Sep 17 00:00:00 2001
+From: zhaochengyi <zhaochengyi@uniontech.com>
+Date: Thu, 3 Nov 2022 16:53:39 +0800
+Subject: [PATCH 6/6] Set parameter ignore_dB via 90-pulseaudio.rules
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Add the environment variable PULSE_VOLUME_IGNORE_DB for
+ignore_dB of the module module-udev-detect via the rule
+file 90-pulseaudio.rules.
+
+Log: 对于声卡KT_USB_AUDIO，需要特别设置ignore_dB为1，
+因此忽略分贝db音量，而使用volume百分比音量。
+
+Bug: https://pms.uniontech.com/zentao/bug-view-99019.html
+
+Author: Chengyi Zhao <zhaochengyi@uniontech.com>
+Origin: https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/e218c948f47dbeb0c8f60fee651e85d3edd1c932
+---
+ src/modules/alsa/90-pulseaudio.rules | 4 ++++
+ src/modules/alsa/module-alsa-card.c  | 9 +++++++++
+ 2 files changed, 13 insertions(+)
+
+diff --git a/src/modules/alsa/90-pulseaudio.rules b/src/modules/alsa/90-pulseaudio.rules
+index 0bcc7fc..0ae28fc 100644
+--- a/src/modules/alsa/90-pulseaudio.rules
++++ b/src/modules/alsa/90-pulseaudio.rules
+@@ -175,6 +175,10 @@ ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="491b", ENV{PULSE_PROFILE_SET}="22d4-
+ # Dahua
+ ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="4f05", ENV{PULSE_PROFILE_SET}="dahua-4f05-usb-audio.conf"
+ 
++# For ignore_dB
++# Huawei
++ATTRS{idVendor}=="31b2", ATTRS{idProduct}=="0011", ENV{PULSE_VOLUME_IGNORE_DB}="1"
++
+ GOTO="pulseaudio_end"
+ 
+ LABEL="pulseaudio_check_pci"
+diff --git a/src/modules/alsa/module-alsa-card.c b/src/modules/alsa/module-alsa-card.c
+index 0fe8893..1bf8573 100644
+--- a/src/modules/alsa/module-alsa-card.c
++++ b/src/modules/alsa/module-alsa-card.c
+@@ -925,6 +925,15 @@ int pa__init(pa_module *m) {
+         goto fail;
+     }
+ 
++/* Get the value of ignore_dB from the file 90-pulseaudio.rules */
++#ifdef HAVE_UDEV
++    if ((fn = pa_udev_get_property(u->alsa_card_index, "PULSE_VOLUME_IGNORE_DB")) != NULL) {
++        pa_log("Card '%s', PULSE_VOLUME_IGNORE_DB is %s", u->device_id, fn);
++        ignore_dB = atoi(fn);
++        pa_xfree(fn);
++    }
++#endif
++
+     if (!pa_in_system_mode()) {
+         char *rname;
+ 
+-- 
+2.33.1
+

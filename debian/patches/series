@@ -8,3 +8,11 @@ deepin-bug88648-bluetooth-Try-to-reconnect-HSP-SCO.patch
 deepin-bug94530-monitor-status-of-Jack-Line-Out-CLFE.patch
 deepin-bug101321-pick-first-working-fallback-and-ignore-rest.patch
 deepin-bug78593-No-need-to-start-pulseaudio-when-starting-lightdm.patch
+deepin-bug19177-20942-add-conf-to-adapte-huawei-T100-board.patch
+deepin-bug38155-add-conf-to-adapt-sugon-usb-audio.patch
+deepin-bug56790-add-conf-to-adapte-msi.patch
+deepin-bug79921-add-Loongson-conf-to-adapt-audio-card.patch
+deepin-bug86350-add-Dahua-conf-to-adapt-usb-audio-card.patch
+deepin-bug-hwqx-Set-parameter-ignore_dB-via-90-pulseaudio.patch
+deepin-bug122957-Set-volume-with-ignored-dB.patch
+deepin-bug147927-Fix-noise-when-change-Application-volume.patch

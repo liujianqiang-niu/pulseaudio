@@ -1,8 +1,8 @@
 Source: pulseaudio
 Section: sound
 Priority: optional
-Maintainer: Deepin Developer <deepin-dev@deepin.org>
-Uploaders: Deepin Packages Builder <packages@deepin.org>
+Maintainer: Pulseaudio maintenance team <pkg-pulseaudio-devel@lists.alioth.debian.org>
+Uploaders: Sjoerd Simons <sjoerd@debian.org>,
     Felipe Sateler <fsateler@debian.org>,
     Sebastien Bacher <seb128@debian.org>
 Build-Depends: debhelper-compat (= 13),
@@ -45,8 +45,8 @@ Build-Depends: debhelper-compat (= 13),
     systemd [linux-any]
 Standards-Version: 4.6.0
 Rules-Requires-Root: no
-#Vcs-Browser
-#Vcs-Git
+Vcs-Browser: https://salsa.debian.org/pulseaudio-team/pulseaudio
+Vcs-Git: https://salsa.debian.org/pulseaudio-team/pulseaudio.git
 Homepage: https://www.pulseaudio.org
 
 Package: pulseaudio

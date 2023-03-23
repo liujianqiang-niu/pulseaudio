@@ -1,0 +1,39 @@
+From 725d545116720fa8aa7dba6656935a58afc9ad8b Mon Sep 17 00:00:00 2001
+From: zhaochengyi <zhaochengyi@uniontech.com>
+Date: Fri, 4 Nov 2022 16:00:07 +0800
+Subject: [PATCH] Fix noise when change Application volume.
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+当在华为或其他某些设备上，使用外接USB声卡的时候，调节应用程序
+的音量会出现杂音，当前采用的方式为去掉设置音量时的rewind动作
+来规避杂音问题。
+
+Log: fix noise when change Application volume.
+
+Bug: https://pms.uniontech.com/bug-view-147927.html
+
+Author: ut003390 <lishengyu@uniontech.com>
+Origin: https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/08ea6e396d227aa5c9c6c957b09a5a2ee5f7fc04
+---
+ src/pulsecore/sink-input.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/pulsecore/sink-input.c b/src/pulsecore/sink-input.c
+index 5e7657c..c3bdf4a 100644
+--- a/src/pulsecore/sink-input.c
++++ b/src/pulsecore/sink-input.c
+@@ -2097,7 +2097,8 @@ int pa_sink_input_process_msg(pa_msgobject *o, int code, void *userdata, int64_t
+         case PA_SINK_INPUT_MESSAGE_SET_SOFT_VOLUME:
+             if (!pa_cvolume_equal(&i->thread_info.soft_volume, &i->soft_volume)) {
+                 i->thread_info.soft_volume = i->soft_volume;
+-                pa_sink_input_request_rewind(i, 0, true, false, false);
++		/* Cancel the rewind of change volume.
++		/* pa_sink_input_request_rewind(i, 0, true, false, false); */
+             }
+             return 0;
+ 
+-- 
+2.33.1
+
