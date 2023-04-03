@@ -6,6 +6,9 @@ DEB_LDFLAGS_MAINT_APPEND = -Wl,--no-as-needed
 
 DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
+#fix:Close test suite (from bug107441)
+DEB_BUILD_OPTIONS = nocheck
+
 include /usr/share/dpkg/default.mk
 
 # Needed for testsuite

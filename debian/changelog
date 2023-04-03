@@ -1,3 +1,9 @@
+pulseaudio (15.0.3-5deepin9) unstable; urgency=medium
+
+  * Volume optimization.
+
+ -- yanghaibo <yanghaibo@uniontech.com>  Mon, 03 Apr 2023 10:22:03 +0800
+
 pulseaudio (15.0.2-5deepin8) unstable; urgency=medium
 
   * add deepin patch.

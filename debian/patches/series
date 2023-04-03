@@ -16,3 +16,4 @@ deepin-bug86350-add-Dahua-conf-to-adapt-usb-audio-card.patch
 deepin-bug-hwqx-Set-parameter-ignore_dB-via-90-pulseaudio.patch
 deepin-bug122957-Set-volume-with-ignored-dB.patch
 deepin-bug147927-Fix-noise-when-change-Application-volume.patch
+deepin-bug192419-volume-optimization.patch
