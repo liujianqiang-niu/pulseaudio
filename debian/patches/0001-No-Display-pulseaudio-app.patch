@@ -1,0 +1,21 @@
+From bf4d648bbfc0c0a42d1df62dc8cbc5738f061b59 Mon Sep 17 00:00:00 2001
+From: xzl <xiangzelong@deepin.org>
+Date: Wed, 15 Nov 2023 16:06:30 +0800
+Subject: [PATCH 1/1] No-Display-pulseaudio-app
+
+---
+ src/daemon/pulseaudio.desktop.in | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/daemon/pulseaudio.desktop.in b/src/daemon/pulseaudio.desktop.in
+index 9af72fe..b885c71 100644
+--- a/src/daemon/pulseaudio.desktop.in
++++ b/src/daemon/pulseaudio.desktop.in
+@@ -8,3 +8,4 @@ Type=Application
+ X-GNOME-Autostart-Phase=Initialization
+ X-GNOME-HiddenUnderSystemd=true
+ X-KDE-autostart-phase=1
++NoDisplay=true
+-- 
+2.33.1
+
