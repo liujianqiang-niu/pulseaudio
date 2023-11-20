@@ -42,6 +42,7 @@ Build-Depends: debhelper-compat (= 13),
     libxcb1-dev,
     libxml2-utils <!nocheck>,
     libxtst-dev,
+    libunwind-dev,
     systemd [linux-any]
 Standards-Version: 4.6.0
 Rules-Requires-Root: no
