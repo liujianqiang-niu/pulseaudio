@@ -31,7 +31,7 @@ all_modules = [
   [ 'module-http-protocol-tcp', 'module-protocol-stub.c', [], ['-DUSE_PROTOCOL_HTTP', '-DUSE_TCP_SOCKETS'], [], libprotocol_http ],
   [ 'module-http-protocol-unix', 'module-protocol-stub.c', [], ['-DUSE_PROTOCOL_HTTP', '-DUSE_UNIX_SOCKETS'], [], libprotocol_http ],
   [ 'module-intended-roles', 'module-intended-roles.c' ],
-  [ 'module-ladspa-sink', 'module-ladspa-sink.c', 'ladspa.h', ['-DLADSPA_PATH="' + join_paths(libdir, 'ladspa') + ':/usr/local/lib/ladspa:/usr/lib/ladspa:/usr/local/lib64/ladspa:/usr/lib64/ladspa"'], [dbus_dep, libm_dep, ltdl_dep] ],
+  [ 'module-ladspa-sink', 'module-ladspa-sink.c', 'ladspa.h', ['-DLADSPA_PATH=' + join_paths(libdir, 'ladspa') + ':/usr/local/lib/ladspa:/usr/lib/ladspa:/usr/local/lib64/ladspa:/usr/lib64/ladspa'], [dbus_dep, libm_dep, ltdl_dep] ],
   [ 'module-loopback', 'module-loopback.c' ],
   [ 'module-match', 'module-match.c' ],
   [ 'module-native-protocol-fd', 'module-native-protocol-fd.c', [], [], [], libprotocol_native ],
@@ -54,10 +54,10 @@ all_modules = [
   [ 'module-suspend-on-idle', 'module-suspend-on-idle.c' ],
   [ 'module-switch-on-connect', 'module-switch-on-connect.c' ],
   [ 'module-switch-on-port-available', 'module-switch-on-port-available.c' ],
-  [ 'module-tunnel-sink', 'module-tunnel.c', [], ['-DTUNNEL_SINK=1'], [x11_dep] ],
-  [ 'module-tunnel-sink-new', 'module-tunnel-sink-new.c' ],
-  [ 'module-tunnel-source', 'module-tunnel.c', [], [], [x11_dep] ],
-  [ 'module-tunnel-source-new', 'module-tunnel-source-new.c' ],
+  [ 'module-tunnel-sink', ['module-tunnel.c', 'restart-module.c'], [], ['-DTUNNEL_SINK=1'], [x11_dep] ],
+  [ 'module-tunnel-sink-new', ['module-tunnel-sink-new.c', 'restart-module.c'] ],
+  [ 'module-tunnel-source', ['module-tunnel.c', 'restart-module.c'], [], [], [x11_dep] ],
+  [ 'module-tunnel-source-new', ['module-tunnel-source-new.c', 'restart-module.c'] ],
   [ 'module-virtual-sink', 'module-virtual-sink.c' ],
   [ 'module-virtual-source', 'module-virtual-source.c' ],
   [ 'module-volume-restore', 'module-volume-restore.c' ],
@@ -161,7 +161,7 @@ if dbus_dep.found() and fftw_dep.found()
   ]
 endif
 
-if get_option('gsettings').enabled() and gio_dep.found()
+if get_option('gsettings').enabled() and glib_dep.found() and gio_dep.found()
   subdir('gsettings')
   all_modules += [
     [ 'module-gsettings',

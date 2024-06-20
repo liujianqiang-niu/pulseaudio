@@ -1,73 +1,102 @@
-pulseaudio (15.0.3-5deepin10) unstable; urgency=medium
+pulseaudio (16.1+dfsg1-5.1) unstable; urgency=medium
 
-  * Add patch for pulseaudio, avoid AM show wrong app icon
+  * Non-maintainer upload.
+  * Switch Build-Depends to systemd-dev, fixing FTBFS. (Closes: #1060474)
+  * Install systemd masking symlink and udev rule into /usr (DEP17).
+    (Closes: #1072960)
 
- -- xiangzelong <xiangzelong@deepin.org>  Wed, 15 Nov 2023 16:12:11 +0800
+ -- Chris Hofstaedtler <zeha@debian.org>  Mon, 10 Jun 2024 23:50:35 +0200
 
-pulseaudio (15.0.3-5deepin9) unstable; urgency=medium
+pulseaudio (16.1+dfsg1-5) unstable; urgency=medium
 
-  * Volume optimization.
+  * Team upload
 
- -- yanghaibo <yanghaibo@uniontech.com>  Mon, 03 Apr 2023 10:22:03 +0800
+  [ Sebastien Bacher ]
+  * cherrypick a fix for a test failure with orc 0.4.38 (Closes: #1067288)
 
-pulseaudio (15.0.2-5deepin8) unstable; urgency=medium
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Wed, 03 Apr 2024 08:06:33 -0400
 
-  * add deepin patch.
+pulseaudio (16.1+dfsg1-4) unstable; urgency=medium
 
- -- LiChengGang <lichenggang@uniontech.com>  Thu, 23 Mar 2023 11:33:07 +0800
+  * Team upload
+  * Selectively disable libpulsedsp & padsp on 32-bit non-i386 architectures.
+    Thanks to Simon McVittie, Steve Langasek (Closes: #1067247)
 
-pulseaudio (15.0.2-deepin1) unstable; urgency=medium
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Thu, 21 Mar 2024 15:35:29 -0400
 
-  * deepin-bug147927-Fix-noise-when-change-Application-volume.patch:
-    https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/08ea6e396d227aa5c9c6c957b09a5a2ee5f7fc04
+pulseaudio (16.1+dfsg1-3) unstable; urgency=medium
 
- -- zhaochengyi <zhaochengyi@uniontech.com>  Thu, 10 Nov 2022 17:05:11 +0800
+  * Team upload
 
-pulseaudio (15.0.1-deepin1) unstable; urgency=medium
+  [ Sebastien Bacher ]
+  * debian/rules:
+    - fix a $LIB escaping issue in the pulsedsp-location option which
+      is making padsp hit an error (Closes: #1028329)
 
-  * merge v20 pulseaudio configuration:
-  * deepin-bug19177-20942-add-conf-to-adapte-huawei-T100-board.patch:
-    https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/ac9c2cf195ba082d4a3551fefbecf42f4ea25e46
-    https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/d474d95cb04982a0240a61b21c805e13bfc740b4
-    https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/61f34045b1212f0a9e3a9820a184e6087a15627d
-  * deepin-bug38155-add-conf-to-adapt-sugon-usb-audio.patch:
-    https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/f75de2f53bc4874a99677fcd4e0bdc4165c9f666
-  * deepin-bug56790-add-conf-to-adapte-msi.patch:
-    https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/0e12c834361d2819a4cfc9bbca402c682d4b8bc7
-  * deepin-bug79921-add-Loongson-conf-to-adapt-audio-card.patch:
-    https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/38862136a8d9daa949c96ec09b24a6c97b33d00e
-  * deepin-bug86350-add-Dahua-conf-to-adapt-usb-audio-card.patch:
-    https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/cb75b6040b4e2cd8842ba9c35f3516806de6dd95
-    https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/bebe4f0d9029cb467eb97d1ae9955b9d0adbcc95
-  * deepin-bug-hwqx-Set-parameter-ignore_dB-via-90-pulseaudio.patch:
-    https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/e218c948f47dbeb0c8f60fee651e85d3edd1c932
-  * deepin-bug122957-Set-volume-with-ignored-dB.patch:
-    https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/+/bdaa155eddd3ab4f251a37e82f869675c56cd2c2
+  [ Kai-Heng Feng ]
+  * Add patch to send more initial frames to improve Bluetooth input and output
+    (LP: #2007331)
 
- -- zhaochengyi <zhaochengyi@uniontech.com>  Fri, 04 Nov 2022 09:53:33 +0800
+  [ Gioele Barabucci ]
+  * Install dbus policy in /usr instead of /etc (Closes: #1032339)
 
-pulseaudio (15.0+dfsg1-5) unstable; urgency=medium
+  [ Gianfranco Costamagna ]
+  * Build-Depend on liblirc-dev instead of liblircclient-dev (Closes: #1059976)
 
-  * merge https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/
-    +/90a60418cbba6eb576c29a110c629e06fea71c2c
-  * merge https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/
-    +/aae4c27fc35b46890c085eec02dc74767f8db68e
-  * merge https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/
-    +/a93d016acb670fe160b71baae7f282a41911189e
-  * merge https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/
-    +/b4ecf9c7dc3fa574e4e3f0f4be2c3adcdfc323e4
-  * merge https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/
-    +/4f7e97b63c6bde1f1b07aebd781c1feff50a77d2
-  * merge https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/
-    +/a9bf43439ded8bd2d1d63aaea0d43ff56d83ba76
-  * merge https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/
-    +/a99f544b86025cc65e8145f46cb406992502b4a0
-  * merge https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/
-    +/c28ac1b69f4d6c17b18919ca1add9b144fc6fd8b
-  * merge https://gerrit.uniontech.com/plugins/gitiles/base/pulseaudio/
-    +/ff25c4b85ed63c2676b42ba2a2d56cf0b4fe7931
+  [ Debian Janitor ]
+  * Remove constraints unnecessary since buster (oldstable)
 
- -- Hu Feng <hufeng@uniontech.com>  Wed, 25 May 2022 17:41:24 +0800
+  [ Jeremy Bicha ]
+  * Drop obsolete package description reference to GConf
+  * Update lintian override info to new format
+  * Update standards version to 4.6.2, no changes needed
+
+  [ Gabor Karsay ]
+  * Remove unused Lintian override
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Fri, 05 Jan 2024 10:59:38 -0500
+
+pulseaudio (16.1+dfsg1-2) unstable; urgency=medium
+
+  * Team upload
+  * Release to unstable
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 22 Sep 2022 15:00:13 -0400
+
+pulseaudio (16.1+dfsg1-1) experimental; urgency=medium
+
+  * Correctly use gbp import to regenerate a dfsg tarball
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 24 Jun 2022 14:11:24 +0200
+
+pulseaudio (16.1-1) experimental; urgency=medium
+
+  * New upstream version
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 24 Jun 2022 13:47:48 +0200
+
+pulseaudio (15.99.1+dfsg1-1) experimental; urgency=medium
+
+  * New upstream candidate
+  * d/p/0002-bluetooth-ldac-Fix-RTP-payloading-of-encoded-packet.patch:
+    - removed, the fix is in the new version
+
+  [ Diederik de Haas ]
+  * Create /etc/pulse/system.pa.d to store additional configuration snippets
+    for system.pa (Closes: #994708)
+
+  [ Laurent Bigonville ]
+  * Enable gstreamer support.  This is mainly needed to use different codecs
+    for Bluetooth headsets (Closes: #991597, #954434)
+  * Fix LDAC RTP payloading.  Without this, LDAC is not working with recent
+    Sony devices
+
+  [ Debian Janitor ]
+  * Remove 5 obsolete maintscript entries in 1 files.
+  * Bump debhelper from old 12 to 13. + debian/rules: Drop --fail-missing
+    argument to dh_missing, which is now the default.
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 24 Feb 2022 22:03:52 +0100
 
 pulseaudio (15.0+dfsg1-4) unstable; urgency=medium
 

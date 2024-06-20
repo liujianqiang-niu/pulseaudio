@@ -6,9 +6,6 @@ DEB_LDFLAGS_MAINT_APPEND = -Wl,--no-as-needed
 
 DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
-#fix:Close test suite (from bug107441)
-DEB_BUILD_OPTIONS = nocheck
-
 include /usr/share/dpkg/default.mk
 
 # Needed for testsuite
@@ -42,8 +39,9 @@ DEB_MESON_OPTIONS = \
   -Dstream-restore-clear-old-devices=true \
   -Dzshcompletiondir=/usr/share/zsh/vendor-completions \
   -Dsystemduserunitdir=/usr/lib/systemd/user \
+  -Dudevrulesdir=/usr/lib/udev/rules.d \
   -Dmodlibexecdir=/usr/lib/pulse-$(DEB_VERSION_UPSTREAM)/modules \
-  -Dpulsedsp-location=/usr/\\\\'$$$$'LIB/pulseaudio \
+  -Dpulsedsp-location=/usr/\\'$$'LIB/pulseaudio \
   -Dgtk=enabled \
   -Dglib=enabled \
   -Dfftw=enabled \
@@ -75,6 +73,10 @@ ifeq ($(DEB_HOST_ARCH_OS),linux)
 	cp -a $(CURDIR)/debian/pulse.conf \
 		$(CURDIR)/debian/tmp/usr/share/alsa/alsa.conf.d
 	cp -a $(CURDIR)/debian/pulse-alsa.conf $(CURDIR)/debian/tmp/usr/share/alsa
+endif
+ifneq (,$(filter $(DEB_HOST_ARCH),amd64 arm64 i386 mips64el ppc64el riscv64 s390x alpha hurd-amd64 ia64 loong64 ppc64 sparc64 x32))
+	dh_install -ppulseaudio-utils debian/tmp/usr/bin/padsp
+	dh_install -ppulseaudio-utils debian/tmp/usr/share/man/man1/padsp.1
 endif
 
 override_dh_makeshlibs:
