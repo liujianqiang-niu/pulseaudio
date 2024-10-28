@@ -1,3 +1,10 @@
+pulseaudio (16.1+dfsg1-5.1deepin1) unstable; urgency=medium
+
+  * add debian/patches/deepin-bug192419-volume-optimization.patch
+  * add debian/patches/0001-No-Display-pulseaudio-app.patch
+
+ -- lichenggang <lichenggang@deepin.org>  Mon, 28 Oct 2024 15:13:10 +0800
+
 pulseaudio (16.1+dfsg1-5.1) unstable; urgency=medium
 
   * Non-maintainer upload.

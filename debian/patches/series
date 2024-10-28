@@ -1,5 +1,7 @@
+0001-No-Display-pulseaudio-app.patch
 disable-autospawn.patch
 dbus-policy-usr.patch
 bluetooth-send-more-frames.patch
 selectively-disable-libpulsedsp.patch
 git_tests_alignment.patch
+deepin-bug192419-volume-optimization.patch
