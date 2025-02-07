@@ -1,3 +1,40 @@
+pulseaudio (17.0+dfsg1-2deepin1) unstable; urgency=medium
+
+  * Team upload
+  * Bump minimum webrtc-audio-processing
+  * Remove patch added to support old webrtc-audio-processing
+  * Remove obsolete Depends: lsb-base
+  * Update standards version to 4.7.0, no changes needed
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Wed, 29 Jan 2025 11:32:02 -0500
+
+pulseaudio (17.0+dfsg1-1deepin1) unstable; urgency=medium
+
+  [ Alper Nebi Yasak ]
+  * New upstream version 17.0+dfsg1
+  * Drop patches applied upstream
+    - daemon/meson.build: Install dbus policy in /usr, not /etc
+    - bluetooth: Amend writeout to send more initial frames
+  * Re-add git_tests_alignment.patch not included in v17.0
+  * Cherry-pick patches to fix UCM-related crashes
+    - alsa-ucm: Replace port device UCM context assertion with an error
+    - alsa-ucm: Check UCM verb before working with device status
+  * Add patch to support old webrtc-audio-processing library
+  * Add patch to fix segfault with too many UCM devices
+
+ -- Alper Nebi Yasak <alpernebiyasak@gmail.com>  Wed, 11 Dec 2024 21:27:53 +0100
+
+pulseaudio (16.2+dfsg1-1deepin1) unstable; urgency=medium
+
+  * New upstream version 16.2+dfsg1
+    - Fix gstreamer hang when seeking (Closes: #1081707)
+  * Drop patch applied upstream
+    - d/p/git_tests_alignment.patch
+  * Silence lintian errors about custom RUNPATH
+  * Fix mismatched lintian-overrides
+
+ -- Alessandro Astone <alessandro.astone@canonical.com>  Wed, 11 Dec 2024 13:35:26 +0100
+
 pulseaudio (16.1+dfsg1-5.1deepin1) unstable; urgency=medium
 
   * add debian/patches/deepin-bug192419-volume-optimization.patch

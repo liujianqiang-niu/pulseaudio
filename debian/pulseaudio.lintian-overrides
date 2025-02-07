@@ -1,3 +1,5 @@
 # These are not meant to be executed
 pulseaudio: script-not-executable [etc/pulse/*.pa]
 pulseaudio: description-starts-with-package-name
+# Libraries in private namespace can use custom RUNPATH
+pulseaudio: custom-library-search-path RUNPATH /usr/lib/pulse-*/modules [usr/lib/pulse-*/modules/*.so]

@@ -1,7 +1,8 @@
 0001-No-Display-pulseaudio-app.patch
 disable-autospawn.patch
-dbus-policy-usr.patch
-bluetooth-send-more-frames.patch
 selectively-disable-libpulsedsp.patch
 git_tests_alignment.patch
+ucm-check-verb-for-device-status.patch
+ucm-replace-context-assertion-with-error.patch
+ucm-fix-infinite-recursion.patch
 deepin-bug192419-volume-optimization.patch

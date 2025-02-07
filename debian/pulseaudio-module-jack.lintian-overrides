@@ -1,0 +1,2 @@
+# Libraries in private namespace can use custom RUNPATH
+pulseaudio-module-jack: custom-library-search-path RUNPATH /usr/lib/pulse-*/modules [usr/lib/pulse-*/modules/*.so]
