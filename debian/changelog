@@ -1,3 +1,9 @@
+pulseaudio (17.0+dfsg1-2deepin2) unstable; urgency=medium
+
+  * add sw64 support. 
+
+ -- liujianqiang <liujianqiang@uniontech.com>  Thu, 08 May 2025 16:00:41 +0800
+
 pulseaudio (17.0+dfsg1-2deepin1) unstable; urgency=medium
 
   * Team upload
